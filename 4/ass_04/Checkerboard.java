@@ -8,12 +8,8 @@ public class Checkerboard {
       double halfSide = .5;
       for (double y = halfSide; y < n; y++) {
         for (double x = halfSide; x < n; x++) {
-          if (toggle) {
-            StdDraw.setPenColor(StdDraw.LIGHT_GRAY);
-          }
-          else {
-            StdDraw.setPenColor(StdDraw.BLUE); 
-          }
+          if (toggle) StdDraw.setPenColor(StdDraw.LIGHT_GRAY);
+          else        StdDraw.setPenColor(StdDraw.BLUE);
           StdDraw.filledSquare(x, y, halfSide);
           toggle = !toggle;
         }
