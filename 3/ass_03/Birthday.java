@@ -25,10 +25,10 @@ public class Birthday {
         counts[people] += 1;
       }
 
-      int sum = 0;
+      double sum = 0.0;
       for (int i = 0; i < counts.length; i++) {
         sum += counts[i];
-        double fraction = (0.0 + sum) / trials;
+        double fraction = sum / trials;
 
         System.out.println(i+1 + "   " + counts[i] + "  " + fraction);
 
