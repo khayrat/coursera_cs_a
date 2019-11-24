@@ -1,0 +1,264 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="../css/assignments.css">
+    <link rel="stylesheet" type="text/css" href="https://algs4.cs.princeton.edu/css/link-icons.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <title>Programming Assignment 1: Hello, World</title>
+</head>
+
+<body class = "specification">
+
+
+<div id="nav2">
+<a href = "specification.php" id="logo"> <img src="logo.png"> Hello, World</a>
+<ul id="links">
+<li><a href="specification.php" id = "here">Spec</a></li>
+<li><a href="faq.php">FAQ</a></li>
+<li><a href="hello.zip">Project</a></li>
+<li><a href="https://www.coursera.org/learn/cs-programming-java/programming/3L7Mq/hello-world/submission" target="_blank">Submit</a></li>
+</ul>
+</div>
+
+<p>
+<em>
+The purpose of this assignment is to introduce you to programming in Java
+and familiarize you with the mechanics of preparing and submitting assignment solutions.
+</em>
+
+
+<!--
+<p><b>Java programming.</b>&nbsp; In the previous step, you created, compiled, and executed 
+<tt>HelloWorld.java</tt>.
+Next, you will write four short programs on your own.
+-->
+
+<ol start = 0>
+
+<p><br>
+<li><b>Install our Java programming environment (recommended).</b>&nbsp;
+Install our novice-friendly Java programming environment on your computer
+by following these step-by-step instructions for 
+<a href = "http://lift.cs.princeton.edu/java/mac">Mac OS X</a>,
+<a href = "http://lift.cs.princeton.edu/java/windows">Windows</a>,
+or
+<a href = "http://lift.cs.princeton.edu/java/linux">Linux</a>.
+
+<p>
+As part of these instructions, you will write, compile, and execute
+the program
+<a href = "https://introcs.cs.princeton.edu/11hello/HelloWorld.java.html">HelloWorld.java</a>.
+
+<blockquote>
+<pre class = "terminal">
+<span class = prompt>~/Desktop/hello&gt;</span> <span class = command>javac HelloWorld.java</span>
+
+<span class = prompt>~/Desktop/hello&gt;</span> <span class = command>java HelloWorld</span>
+Hello, World
+</pre>
+</blockquote>
+
+<!------------------------------------------------------------------------------------- -->
+<p><br>
+<li><b>Strings and command-line arguments.</b>
+Write a program <tt>HelloGoodbye.java</tt> that takes two names as command-line arguments
+and prints hello and goodbye messages as shown below (with the names for the hello message
+in the same order as the command-line arguments and with the names for the goodbye message
+in reverse order).
+
+<blockquote>
+<pre class = "terminal">
+<span class = prompt>~/Desktop/hello&gt;</span> <span class = command>javac HelloGoodbye.java</span>
+
+<span class = prompt>~/Desktop/hello&gt;</span> <span class = command>java HelloGoodbye Kevin Bob</span>
+Hello Kevin and Bob.
+Goodbye Bob and Kevin.
+
+<span class = prompt>~/Desktop/hello&gt;</span> <span class = command>java HelloGoodbye Alejandra Bahati</span>
+Hello Alejandra and Bahati.
+Goodbye Bahati and Alejandra.
+</pre>
+</blockquote>
+
+<!------------------------------------------------------------------------------------- -->
+<p><br>
+<li><b>Integers and booleans.</b>
+Write a program <code>RightTriangle</code> that takes three <code>int</code>
+command-line arguments
+and determines whether they constitute the side lengths of some right triangle.
+
+<p>
+<center>
+<img src = "right-triangle.png" width = 200 alt = "right triangle">
+</center>
+
+
+<p>
+The following two conditions are necessary and sufficient:
+<ul>
+<p><li> Each integer must be positive.
+<p><li> The sum of the squares of two of the integers must equal the square of the third integer.
+</ul>
+
+
+<blockquote>
+<pre class = "terminal">
+<span class = prompt>~/Desktop/hello&gt;</span> <span class = command>javac RightTriangle.java</span>
+
+<span class = prompt>~/Desktop/hello&gt;</span> <span class = command>java RightTriangle 3 4 5</span>
+true
+
+<span class = prompt>~/Desktop/hello&gt;</span> <span class = command>java RightTriangle 13 12 5</span>
+true
+
+<span class = prompt>~/Desktop/hello&gt;</span> <span class = command>java RightTriangle 1 2 3</span>
+false
+
+<span class = prompt>~/Desktop/hello&gt;</span> <span class = command>java RightTriangle -3 4 -5</span>
+false
+</pre>
+</blockquote>
+
+<!------------------------------------------------------------------------------------- -->
+<p><br>
+<li><b>Floating-point numbers and the Math library.</b>
+The <em>great-circle distance</em> is the length of the shortest path between two points
+\( (x_1, y_1) \) and \( (x_2, y_2) \)
+on the surface of a sphere, where the path is constrained to be along the surface.
+
+<p><center>
+<img src = "great-circle.png" width = 200 alt = "great-circle distance between two points">
+</center>
+
+<p>
+Write a program <code>GreatCircle.java</code> that takes four <code>double</code> command-line 
+arguments \(x_1\), \(y_1\), \(x_2\), and \(y_2\)&mdash;the latitude and longitude (in degrees)
+of two points on the surface of the earth&mdash;and prints
+the great-circle distance (in kilometers) between them. 
+Use the following
+<a href = "https://en.wikipedia.org/wiki/Haversine_formula">Haversine formula</a>
+
+\[
+distance \; = \; 2r \arcsin \left ( \sqrt{ \sin^2 \left ( \frac{x_2 - x_1}{2} \right ) + \cos x_1 \cos x_2  \sin^2 \left ( \frac{y_2 - y_1}{2} \right ) } \right )
+\]
+
+where \(r = \text{6,371.0}\) is the mean radius of the Earth (in kilometers).
+
+
+<blockquote>
+<pre class = "terminal">
+<span class = prompt>~/Desktop/hello&gt;</span> <span class = command>javac GreatCircle.java</span>
+
+<span class = prompt>~/Desktop/hello&gt;</span> <span class = command>java GreatCircle 40.35 74.65 48.87 -2.33</span>    <font color = gray>// Princeton to Paris</font>
+5902.927099258561 kilometers
+
+<span class = prompt>~/Desktop/hello&gt;</span> <span class = command>java GreatCircle 60.0 15.0 120.0 105.0</span>      <font color = gray>// for debugging</font>
+4604.53989281927 kilometers
+</pre>
+</blockquote>
+
+<p><em>Hint:</em> The command-line arguments are given in degrees but
+Java’s trigonometric functions use radians.
+Use <code>Math.toRadians()</code> to convert from degrees to radians.
+
+<p>
+<em>
+Although the Earth is not a perfect sphere, this formula is a good approximation to the true distance.</em>
+
+
+<!------------------------------------------------------------------------------------- -->
+<p><br>
+<li><b>Type conversion.</b>
+
+Several different formats are used to represent color. For example, the primary format for LCD displays, digital 
+cameras, and web pages&mdash;known as the <em>RGB format</em>&mdash;specifies the level of red (R), green (G), 
+and blue (B) on an integer scale from 0 to 255. The primary format for publishing books and magazines&mdash;known 
+as the <em>CMYK format</em>&mdash;specifies the level of cyan (C), magenta (M), yellow (Y), and black (K) on a 
+real scale from 0.0 to 1.0.
+
+<p>
+Write a program <code>CMYKtoRGB.java</code> that converts from CMYK format to RGB format
+using these mathematical formulas:
+
+<!--
+/* Adobe Photoshop algorithm */
+cyan = Math.min(255, cyan + black); //black is from K
+magenta = Math.min(255, magenta + black);
+yellow = Math.min(255, yellow + black);
+rgb[0] = 255 - cyan;
+rgb[1] = 255 - magenta;
+rgb[2] = 255 - yellow;
+
+<blockquote>
+\( \begin{align*}
+red   \;&=\;  \max \left \{ \, 0, \; 255 \times (1 - cyan - black)    \, \right \} \\
+green \;&=\;  \max \left \{ \, 0, \; 255 \times (1 - magenta - black) \, \right \} \\
+blue  \;&=\;  \max \left \{ \, 0, \; 255 \times (1 - yellow - black)  \, \right \}
+\end{align*} \)
+</blockquote>
+
+-->
+
+
+<blockquote>
+\( \begin{align*}
+white \;&=\;  1 - black \\
+red   \;&=\;  255 \; \times \; white \; \times \; (1 - cyan)    \\
+green \;&=\;  255 \; \times \; white \; \times \; (1 - magenta) \\
+blue  \;&=\;  255 \; \times \; white \; \times \; (1 - yellow)
+\end{align*} \)
+</blockquote>
+
+Your program must take four <code>double</code> command-line arguments
+<code>cyan</code>, <code>magenta</code>, <code>yellow</code>, and <code>black</code>;
+compute the corresponding RGB values, each rounded to the nearest integer;
+and print the RGB values, as in the following sample executions:
+
+<blockquote>
+<pre class = "terminal">
+<span class = prompt>~/Desktop/hello&gt;</span> <span class = command>javac CMYKtoRGB.java</span>
+
+<span class = prompt>~/Desktop/hello&gt;</span> <span class = command>java CMYKtoRGB 0.0 1.0 0.0 0.0</span>    <font color = gray>// magenta</font>
+red   = 255
+green = 0
+blue  = 255
+
+<span class = prompt>~/Desktop/hello&gt;</span> <span class = command>java CMYKtoRGB 0.0 0.4392156862745098 1.0 0.0</span>    <font color = gray>// Princeton orange</font>
+red   = 255
+green = 143
+blue  = 0
+</pre>
+</blockquote>
+
+
+<!--
+<p> <em>Note.</em> Technically this formula converts from RGB to CMYK using Photoshop’s default
+RGB and CMYK color spaces&mdash;sRGB and SWOP.
+-->
+
+<!-- sRGB IEC61966-2.1 and U.S. Web Coated  (SWOP) v2 -->
+
+<!------------------------------------------------------------------------------------- -->
+
+
+<p><br>
+<b>Submission.</b>
+Submit  a <code>.zip</code> file containing
+<code>HelloWorld.java</code>,
+<code>HelloGoodbye.java</code>,
+<code>RightTriangle.java</code>,
+<code>GreatCircle.java</code>, and
+<code>CMYKtoRGB.java</code>.
+You may not call library functions except those in the <code>java.lang</code>
+(such as <code>Integer.parseInt()</code> and <code>Math.sqrt()</code>).
+Do not use loops, conditionals, arrays or other Java features that have not yet been
+introduced in the course.
+
+<ADDRESS><SMALL>
+This assignment was developed by Kevin Wayne.
+<br>Copyright &copy; 2019.
+</SMALL></ADDRESS>
+
+</BODY></HTML>
