@@ -64,14 +64,47 @@ public class AudioCollage {
     }
 
     // Returns a new array that changes the speed by the given factor.
-    public static double[] changeSpeed(double[] a, double alpha) {
+    public static double[] changeSpeed(double[] a, double alpha) 
+    {
+      int samples = (int) (a.length / alpha);
+      double[] result = new double[samples];
 
-      return null;
+      for (int i = 0; i < samples; i++)
+        result[i] = a[(int) (i * alpha)];
+
+      return result;
+    }
+
+    private static void printN(int n, double[] a) {
+       for (int i = 0; i < n && i < a.length; i++)
+         StdOut.printf("%s ", a[i]);
+       StdOut.printf("\n");
     }
 
     // Creates an audio collage and plays it on standard audio.
     // See below for the requirements.
     public static void main(String[] args) {
+      int duration = 10 * StdAudio.SAMPLE_RATE;
+      String[] files = {"beatbox.wav", "buzzer.wav", "chimes.wav", "cow.wav", "dialup.wav"};
+      double[][] sounds = new double[files.length][];
 
+      for (int i = 0; i < files.length; i++) {
+        sounds[i] = StdAudio.read(files[i]);
+        //StdOut.printf("file: %s, length: %d\n", files[i], sounds[i].length);
+        //printN(100, sounds[i]);
+      }
+
+      // amplify, reverse, merge, mix, and change speed)
+      
+      double[] sound = mix(sounds[3], reverse(mix(amplify(sounds[1], 2), mix(sounds[4], merge(amplify(sounds[0], 2), changeSpeed(sounds[2], 2))))));
+     
+//      for (int i = 0; i < sounds.length; i++) {
+        for (int j = 0; j < duration; j++) {
+//          double[] sound = sounds[i];
+          int n = sound.length;
+          StdAudio.play(sound[j % n]);
+        }
+ //     }
+      StdAudio.close();
     }
 }
