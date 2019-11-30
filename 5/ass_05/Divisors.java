@@ -37,7 +37,7 @@ public class Divisors {
 
     // Returns true if a and b are relatively prime; false otherwise.
     public static boolean areRelativelyPrime(int a, int b) {
-      return gcd(a, b) < 2;
+      return gcd(a, b) == 1;
     }
 
     // Returns the number of integers between 1 and n that are
