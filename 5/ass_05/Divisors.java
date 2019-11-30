@@ -13,6 +13,8 @@ public class Divisors {
         a = a - b;
       }
 
+      if (b == 0) return a;
+
       while (true) {
         int r = a%b;
         if (r == 0) break;
@@ -25,7 +27,7 @@ public class Divisors {
 
     // Returns the least common multiple of a and b.
     public static int lcm(int a, int b) {
-      if (a == 0 && b == 0) return 0;
+      if (a == 0 || b == 0) return 0;
 
       a = Math.abs(a);
       b = Math.abs(b);
