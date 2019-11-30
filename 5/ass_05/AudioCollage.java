@@ -75,12 +75,6 @@ public class AudioCollage {
       return result;
     }
 
-    private static void printN(int n, double[] a) {
-       for (int i = 0; i < n && i < a.length; i++)
-         StdOut.printf("%s ", a[i]);
-       StdOut.printf("\n");
-    }
-
     // Creates an audio collage and plays it on standard audio.
     // See below for the requirements.
     public static void main(String[] args) {
@@ -90,24 +84,21 @@ public class AudioCollage {
 
       for (int i = 0; i < files.length; i++) {
         sounds[i] = StdAudio.read(files[i]);
-        //StdOut.printf("file: %s, length: %d\n", files[i], sounds[i].length);
-        //printN(100, sounds[i]);
       }
 
-      // amplify, reverse, merge, mix, and change speed)
-      
-      double[] sound = mix(sounds[3], reverse(mix(amplify(sounds[1], 2), mix(sounds[4], merge(amplify(sounds[0], 2), changeSpeed(sounds[2], 2))))));
+      double[] sound = mix(sounds[3], 
+                           reverse(mix(amplify(sounds[1], 2), 
+                                       mix(sounds[4], 
+                                           merge(amplify(sounds[0], 2), 
+                                                 changeSpeed(sounds[2], 2))))));
      
-//      for (int i = 0; i < sounds.length; i++) {
         for (int j = 0; j < duration; j++) {
-//          double[] sound = sounds[i];
           int n = sound.length;
           double tone = sound[j % n];
           if (tone >  1.0) tone =  1.0;
           if (tone < -1.0) tone = -1.0;
           StdAudio.play(tone);
         }
- //     }
       StdAudio.close();
     }
 }
