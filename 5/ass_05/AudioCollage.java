@@ -28,8 +28,8 @@ public class AudioCollage {
       for (int i = 0; i < a.length; i++) 
         result[i] = a[i];
 
-      for (int i = a.length; i < b.length; i++) 
-        result[i] = b[i];
+      for (int i = 0; i < b.length; i++) 
+        result[a.length + i] = b[i];
 
       return result;
     }
@@ -102,7 +102,10 @@ public class AudioCollage {
         for (int j = 0; j < duration; j++) {
 //          double[] sound = sounds[i];
           int n = sound.length;
-          StdAudio.play(sound[j % n]);
+          double tone = sound[j % n];
+          if (tone >  1.0) tone =  1.0;
+          if (tone < -1.0) tone = -1.0;
+          StdAudio.play(tone);
         }
  //     }
       StdAudio.close();
