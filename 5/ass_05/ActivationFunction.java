@@ -19,9 +19,9 @@ public class ActivationFunction {
       if (Double.isNaN(x)) return Double.NaN;
       //if x≥20, then tanh(x) should return 1.0; 
       //if x≤−20, then tanh(x) should return -1.0.
-      if      (x >= 20) return  1.0;
-      else if (x <= 20) return -1.0;
-      return (Math.exp(x) - Math.exp(-x))/(Math.exp(x)+Math.exp(-x));
+      if      (x >=  20) return  1.0;
+      else if (x <= -20) return -1.0;
+      else return (Math.exp(x) - Math.exp(-x))/(Math.exp(x)+Math.exp(-x));
     }
 
     // Returns the softsign function of x.
