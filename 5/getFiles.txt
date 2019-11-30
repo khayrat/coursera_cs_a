@@ -1,0 +1,8 @@
+#!/bin/bash
+
+url=https://introcs.cs.princeton.edu/java/21function
+files="Ascale.txt elise.txt StairwayToHeaven.txt firstcut.txt looney.txt National_Anthem.txt arabesque.txt entertainer.txt freebird.txt tomsdiner.txt"
+
+for file in $files; do
+  curl -O $url/$file
+done
