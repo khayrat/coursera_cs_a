@@ -21,14 +21,13 @@ public class RevesPuzzle
       StdOut.println("Move disc " + 2 + " from " + from + " to " + to);
       StdOut.println("Move disc " + 1 + " from " + t1 + " to " + to);
     }
-    else {
+    else { // n > 2
       int k = (int) Math.round(n + 1 - Math.sqrt(2 * n + 1));
-      int rest = n - k;
 
       //StdOut.printf("%d, %d\n", n, k);
 
       h4(k, from, to, t1, t2);
-      hanoi(rest, k, from, t1, to);
+      hanoi(n-k, k, from, t1, to);
       h4(k, t2, from, t1, to);
     }
   }
