@@ -7,11 +7,11 @@ public class TrinomialDP
     if (k > n) return 0; // n+k <= 2*n => range(k): k <= n
 
     long[][] dp = new long[n+1][n+1];
-    dp[0][0] = 1;
+    dp[0][0] = 1; // the root
 
     for (int i = 1; i <= n; i++)
     {
-      for (int j = 0; j <= n; j++) // k, where  0 <= k <= n
+      for (int j = 0; j <= n; j++) // j represents the k, where  0 <= k <= n
       {
         dp[i][j] = th(i-1, j-1, dp) + th(i-1, j, dp) + th(i-1, j+1, dp);
         if ((i == n) && (j == k)) break;
