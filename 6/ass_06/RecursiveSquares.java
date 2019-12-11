@@ -4,6 +4,7 @@ public class RecursiveSquares
     // with a light gray background and a black border.
     public static void drawSquare(double x, double y, double length)
     {
+      length = length/2;
       StdDraw.setPenColor(StdDraw.LIGHT_GRAY);
       StdDraw.filledSquare(x, y, length);
       StdDraw.setPenColor(StdDraw.BLACK);
@@ -16,21 +17,14 @@ public class RecursiveSquares
     {
       if (n == 0) return;
       else if (n == 1) drawSquare(x, y, length);
-      else if (n == 2)
-      {
-         drawSquare(x - length, y + length, length/2);
-         drawSquare(x + length, y + length, length/2);
-         drawSquare(x, y, length);
-         drawSquare(x - length, y - length, length/2);
-         drawSquare(x + length, y - length, length/2);
-      }
       else
       {
-        draw(n-1, x-length, y+length, length/2);
-        draw(n-1, x+length, y+length, length/2);
+        double half = length/2;
+        draw(n-1, x-half, y+half, half);
+        draw(n-1, x+half, y+half, half);
         drawSquare(x, y, length);
-        draw(n-1, x-length, y-length, length/2);
-        draw(n-1, x+length, y-length, length/2);
+        draw(n-1, x-half, y-half, half);
+        draw(n-1, x+half, y-half, half);
       }
     }
 
@@ -39,6 +33,6 @@ public class RecursiveSquares
     public static void main(String[] args)
     {
       int n = Integer.parseInt(args[0]);
-      draw(n, 0.5, 0.5, 0.5/2);
+      draw(n, 0.5, 0.5, 0.5);
     }
 }
