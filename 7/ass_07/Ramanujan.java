@@ -25,7 +25,7 @@ public class Ramanujan
           int d = (int) Math.pow(n - c_cube, 1./3);
 
           // check wheter c**3 + d**3 == n
-          if (c_cube + Math.pow(d, 3) == n) return true;
+          if (c_cube + (long) Math.pow(d, 3) == n && a != d) return true;
         }
       }
     }
