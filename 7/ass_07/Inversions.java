@@ -18,7 +18,13 @@ public class Inversions
       if (!(0 <= k) || !(k <= 0.5 * n * (n - 1))) 
           throw new IllegalArgumentException("k should be 0 <= k <= 1/2 * n * (n - 1)");
 
+      if (n < 0) 
+          throw new IllegalArgumentException("n should be >= 0");
+
       int[] p = new int[n];
+
+      if (n == 0) return p;
+
       int offset = 0;
 
       while (k >= n - 1 - offset && k > 0)
