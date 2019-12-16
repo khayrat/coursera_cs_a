@@ -12,7 +12,7 @@ public class Ramanujan
     {
       // calc b
       long a_cube = (long) Math.pow(a, 3);
-      double b = Math.pow(n - a_cube, 1./3);
+      int b = (int) Math.pow(n - a_cube, 1./3);
 
       // check wheter a**3 + b**3 == n
       if (a_cube + Math.pow(b, 3) == n)
@@ -22,7 +22,7 @@ public class Ramanujan
         {
           // clac d
           long c_cube = (long) Math.pow(c, 3);
-          double d = Math.pow(n - c_cube, 1./3);
+          int d = (int) Math.pow(n - c_cube, 1./3);
 
           // check wheter c**3 + d**3 == n
           if (c_cube + Math.pow(d, 3) == n) return true;
