@@ -19,32 +19,14 @@ public class Inversions
           throw new IllegalArgumentException("k should be 0 <= k <= 1/2 * n * (n - 1)");
 
       int[] p = new int[n];
-
-      // init
-      //for (int i = 0; i < n; i++) p[i] = i;
-
       int offset = 0;
 
-//      StdOut.printf("before 1. loop offset: %d\n", offset);
       while (k >= n - 1 - offset && k > 0)
       {
         p[offset] = n-1 - offset; 
         k = k - (n - 1 - offset);
         offset++;
-/*
-        StdOut.printf("n: %d, k: %d, offet: %d\n", n, k, offset);
-
-        for (int i=0; i<n; i++)
-          StdOut.printf("%d ", p[i]);
-        StdOut.println();
-*/
       }
-      /*
-      StdOut.printf("after 1. loop k: %d, offset: %d\n", k, offset);
-      for (int i=0; i<n; i++)
-        StdOut.printf("%d ", p[i]);
-      StdOut.println();
-      */
 
       assert k < (n - 1 - offset); // this means we have to change not until the last element of the sequence or at most n - 2 elements
 
@@ -63,8 +45,6 @@ public class Inversions
 
       assert k == 0;
 
-      //StdOut.printf("after left shift k: %d, offset: %d\n", k, offset);
-
       // place first element
       p[offset++] = 0;
 
@@ -72,14 +52,8 @@ public class Inversions
       for (int i = offset; i < n; i++)
       {
         p[i] = v++;
-
-        //StdOut.printf("n: %d, k: %d, offset: %d, v: %d\n", n, k, offset, v);
       }
-      /*
-        for (int i=0; i<n; i++)
-          StdOut.printf("%d ", p[i]);
-        StdOut.println();
-      */
+
       return p;
     }
 
@@ -95,6 +69,5 @@ public class Inversions
       for (int i=0; i<permutation.length; i++)
         StdOut.printf("%d ", permutation[i]);
       StdOut.println();
-//      StdOut.println(inversions);
     }
 }
