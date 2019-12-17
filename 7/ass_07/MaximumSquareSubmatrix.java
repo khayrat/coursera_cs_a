@@ -12,15 +12,17 @@ public class MaximumSquareSubmatrix
     for (int i = 0; i < n; i++)
     {
       sm[0][i] = a[0][i];
+      if (a[0][i] != 0) max = 1;
     }
 
-    // initialize first colums
+    // initialize first column
     for (int i = 0; i < n; i++)
     {
       sm[i][0] = a[i][0];
+      if (a[i][0] != 0) max = 1;
     }
 
-    // traverse matrix a starting from second row/colums
+    // traverse matrix a starting from second row/column
     for (int i = 1; i < n; i++)
     {
       for (int j = 1; j < n; j++)
