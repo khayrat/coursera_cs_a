@@ -3,29 +3,29 @@ public class Ramanujan
   // Is n a Ramanujan number?
   public static boolean isRamanujan(long n)
   {
-    double qube_root_n = Math.pow(n, 1./3);
+    long qube_root_n = (long) Math.ceil(Math.pow(n, 1./3));
 
-    assert Math.pow(qube_root_n, 3) == n;
+    assert Math.pow(qube_root_n, 3) >= n;
 
     // choose a
-    for (int a = 1; a <= qube_root_n; a++)
+    for (long a = 1; a <= qube_root_n; a++)
     {
       // calc b
-      long a_cube = (long) Math.pow(a, 3);
-      int b = (int) Math.round(Math.pow(n - a_cube, 1./3));
+      long a_cube = a*a*a;
+      long b = (long) Math.ceil(Math.pow(n - a_cube, 1./3));
 
       // check wheter a**3 + b**3 == n
-      if (a_cube + Math.pow(b, 3) == n)
+      if (a_cube + b*b*b == n)
       {
         // choose c
-        for (int c = a + 1; c <= qube_root_n; c++)
+        for (long c = a + 1; c <= qube_root_n; c++)
         {
           // clac d
-          long c_cube = (long) Math.pow(c, 3);
-          int d = (int) Math.round(Math.pow(n - c_cube, 1./3));
+          long c_cube = c*c*c;
+          long d = (long) Math.ceil(Math.pow(n - c_cube, 1./3));
 
           // check wheter c**3 + d**3 == n
-          if (c_cube + (long) Math.pow(d, 3) == n && a != d) return true;
+          if (c_cube + d*d*d == n && a != d) return true;
         }
       }
     }
