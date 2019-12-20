@@ -9,7 +9,7 @@ public class Huntingtons {
       int offset = 0;
       String pattern = "CAG";
 
-      while (offset < n - 3)
+      while (offset <= n - 3)
       {
         if (dna.startsWith(pattern, offset))
         {
@@ -60,7 +60,7 @@ public class Huntingtons {
       String fn = args[0];
       String geneSeq = new In(fn).readAll();
       int repeats = maxRepeats(removeWhitespace(geneSeq));
-      StdOut.printf("max repeats: %d\n", repeats);
+      StdOut.printf("max repeats = %d\n", repeats);
       StdOut.printf("%s\n", diagnose(repeats));
     }
 }
