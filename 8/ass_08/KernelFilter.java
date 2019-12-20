@@ -2,6 +2,24 @@ import java.awt.Color;
 
 public class KernelFilter {
     private static double[][] gausianKernel = null;
+    private static double[][] sharpenKernel = null;
+    private static double[][] laplacianKernel = null;
+    private static double[][] embossKernel = null;
+    private static double[][] motionBlurKernel = null;
+
+    private static double[][] getMotionBlurKernel() {
+      if (motionBlurKernel == null)
+      {
+        double[][] kernel = new double[9][9];
+
+        for (int r = 0; r < 9; r++)
+          for (int c = 0; c < 9; c++)
+            if (r == c) kernel[r][c] = 1./9;
+
+        motionBlurKernel = kernel;
+      }
+      return motionBlurKernel;
+    }
 
     private static double[][] getGaussianKernel() {
       if (gausianKernel == null)
@@ -21,6 +39,48 @@ public class KernelFilter {
       return gausianKernel;
     }
 
+    private static double[][] getSharpenKernel() {
+      if (sharpenKernel == null)
+      {
+        double[][] kernel = {
+          {0, -1, 0},
+          {-1, 5, -1},
+          {0, -1, 0}
+        };
+
+        sharpenKernel = kernel;
+      }
+      return sharpenKernel;
+    }
+
+    private static double[][] getLaplacianKernel() {
+      if (laplacianKernel == null)
+      {
+        double[][] kernel = {
+          {-1, -1, -1},
+          {-1, 8, -1},
+          {-1, -1, -1}
+        };
+
+        laplacianKernel = kernel;
+      }
+      return laplacianKernel;
+    }
+
+    private static double[][] getEmbossKernel() {
+      if (embossKernel == null)
+      {
+        double[][] kernel = {
+          {-2, -1, 0},
+          {-1, 1, 1},
+          {0, 1, 2}
+        };
+
+        embossKernel = kernel;
+      }
+      return embossKernel;
+    }
+
     // Returns a new picture that applies a Gaussian blur filter to the given picture.
     public static Picture gaussian(Picture picture)
     {
@@ -30,25 +90,25 @@ public class KernelFilter {
     // Returns a new picture that applies a sharpen filter to the given picture.
     public static Picture sharpen(Picture picture)
     {
-      return null;
+      return kernel(picture, getSharpenKernel());
     }
 
     // Returns a new picture that applies an Laplacian filter to the given picture.
     public static Picture laplacian(Picture picture)
     {
-      return null;
+      return kernel(picture, getLaplacianKernel());
     }
 
     // Returns a new picture that applies an emboss filter to the given picture.
     public static Picture emboss(Picture picture)
     {
-      return null;
+      return kernel(picture, getEmbossKernel());
     }
 
     // Returns a new picture that applies a motion blur filter to the given picture.
     public static Picture motionBlur(Picture picture)
     {
-      return null;
+      return kernel(picture, getMotionBlurKernel());
     }
 
     // Returns a new picture that applies an arbitrary kernel filter to the given picture.
@@ -74,9 +134,11 @@ public class KernelFilter {
     {
       int h = weights.length;
       int w = weights[0].length;
-      int wp = picture.width();
       int hp = picture.height();
+      int wp = picture.width();
       Picture subPicture = new Picture(w, h);
+
+      //StdOut.printf("h: %d, w: %d, hp: %d, hw: %d\n", h, w, hp, wp); 
 
       // calculate center
       int cx = w / 2;
@@ -89,7 +151,7 @@ public class KernelFilter {
       int lrx = Math.floorMod(x + (w-cx), wp); 
       int lry = Math.floorMod(y + (h-cy), hp); 
 
-      for (int sy = uly, i=0; sy <= lry; sy++, i++)
+      for (int sy = uly, i=0; sy < lry; sy++, i++)
       {
         for (int sx = ulx, j=0; sx < lrx; sx++, j++)
         {
@@ -124,21 +186,11 @@ public class KernelFilter {
           if (b < 0) b = 0;
           if (b > 255) b = 255;
     
-          colorAcc[y*r+ x] = new Color(r, g, b); 
+          colorAcc[y*h+ x] = new Color(r, g, b); 
         }
       }
 
       return reduce(colorAcc);
-    }
-
-    private static Color getPixel(int kr, int kc, int r, int c, Picture picture)
-    {
-      // check left
-       
-      // check right
-      // check top
-      // check down
-      return null;
     }
 
     private static Color reduce(Color[] cs)
@@ -169,5 +221,13 @@ public class KernelFilter {
     public static void main(String[] args)
     {
       Picture pic = new Picture(args[0]);
+      pic.show();
+      sharpen(pic).show();
+      laplacian(pic).show();
+      emboss(pic).show();
+      gaussian(pic).show();
+      motionBlur(pic).show();
+      /*
+      */
     }
 }
