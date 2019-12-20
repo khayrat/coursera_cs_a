@@ -1,84 +1,55 @@
 import java.awt.Color;
 
 public class KernelFilter {
-    private static double[][] gausianKernel = null;
-    private static double[][] sharpenKernel = null;
-    private static double[][] laplacianKernel = null;
-    private static double[][] embossKernel = null;
-    private static double[][] motionBlurKernel = null;
-
     private static double[][] getMotionBlurKernel() {
-      if (motionBlurKernel == null)
-      {
-        double[][] kernel = new double[9][9];
+      double[][] kernel = new double[9][9];
 
-        for (int r = 0; r < 9; r++)
-          for (int c = 0; c < 9; c++)
-            if (r == c) kernel[r][c] = 1./9;
+      for (int r = 0; r < 9; r++)
+        for (int c = 0; c < 9; c++)
+          if (r == c) kernel[r][c] = 1./9;
 
-        motionBlurKernel = kernel;
-      }
-      return motionBlurKernel;
+      return kernel;
     }
 
     private static double[][] getGaussianKernel() {
-      if (gausianKernel == null)
-      {
-        double[][] kernel = {
-          {1, 2, 1},
-          {2, 4, 2},
-          {1, 2, 1}
-        };
+      double[][] kernel = {
+        {1, 2, 1},
+        {2, 4, 2},
+        {1, 2, 1}
+      };
 
-        for (int r = 0; r < 3; r++)
-          for (int c = 0; c < 3; c++)
-            kernel[r][c] = 1./16 * kernel[r][c];
+      for (int r = 0; r < 3; r++)
+        for (int c = 0; c < 3; c++)
+          kernel[r][c] = 1./16 * kernel[r][c];
 
-        gausianKernel = kernel;
-      }
-      return gausianKernel;
+      return kernel;
     }
 
     private static double[][] getSharpenKernel() {
-      if (sharpenKernel == null)
-      {
-        double[][] kernel = {
-          {0, -1, 0},
-          {-1, 5, -1},
-          {0, -1, 0}
-        };
-
-        sharpenKernel = kernel;
-      }
-      return sharpenKernel;
+      double[][] kernel = {
+        {0, -1, 0},
+        {-1, 5, -1},
+        {0, -1, 0}
+      };
+      return kernel;
     }
 
     private static double[][] getLaplacianKernel() {
-      if (laplacianKernel == null)
-      {
-        double[][] kernel = {
-          {-1, -1, -1},
-          {-1, 8, -1},
-          {-1, -1, -1}
-        };
-
-        laplacianKernel = kernel;
-      }
-      return laplacianKernel;
+      double[][] kernel = {
+        {-1, -1, -1},
+        {-1, 8, -1},
+        {-1, -1, -1}
+      };
+      return kernel;
     }
 
     private static double[][] getEmbossKernel() {
-      if (embossKernel == null)
-      {
-        double[][] kernel = {
-          {-2, -1, 0},
-          {-1, 1, 1},
-          {0, 1, 2}
-        };
-
-        embossKernel = kernel;
-      }
-      return embossKernel;
+      double[][] kernel = {
+        {-2, -1, 0},
+        {-1, 1, 1},
+        {0, 1, 2}
+      };
+      return kernel;
     }
 
     // Returns a new picture that applies a Gaussian blur filter to the given picture.
