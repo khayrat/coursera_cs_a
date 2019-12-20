@@ -3,7 +3,28 @@ public class Huntingtons {
     // Returns the maximum number of consecutive repeats of CAG in the DNA string.
     public static int maxRepeats(String dna)
     {
-      return 0;
+      int max = 0;
+      int currentSeq = 0;
+      int n = dna.length();
+      int offset = 0;
+      String pattern = "CAG";
+
+      while (offset < n - 3)
+      {
+        if (dna.startsWith(pattern, offset))
+        {
+          offset = offset + 3;
+          currentSeq++;
+          if (currentSeq > max) max = currentSeq;
+        }
+        else 
+        {
+          offset++;
+          currentSeq = 0;
+        }
+      }
+      
+      return max;
     }
 
     // Returns a copy of s, with all whitespace (spaces, tabs, and newlines) removed.
@@ -23,7 +44,7 @@ public class Huntingtons {
       else if (maxRepeats < 36)  return "normal";
       else if (maxRepeats < 40)  return "high risk";
       else if (maxRepeats < 181) return "Huntington's";
-      else                    return "not human";
+      else                       return "not human";
     }
 
     // Sample client (see below).
@@ -40,6 +61,6 @@ public class Huntingtons {
       String geneSeq = new In(fn).readAll();
       int repeats = maxRepeats(removeWhitespace(geneSeq));
       StdOut.printf("max repeats: %d\n", repeats);
-      StdOut.printf("%d\n", diagnose(repeats));
+      StdOut.printf("%s\n", diagnose(repeats));
     }
 }
