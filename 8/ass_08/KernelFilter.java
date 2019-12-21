@@ -52,6 +52,20 @@ public class KernelFilter {
       return kernel;
     }
 
+    private static double[][] getIdentityKernel() {
+      double[][] kernel = {
+        {0, 0, 0},
+        {0, 1, 0},
+        {0, 0, 0}
+      };
+      return kernel;
+    }
+
+    private static Picture identity(Picture picture)
+    {
+      return kernel(picture, getIdentityKernel());
+    }
+
     // Returns a new picture that applies a Gaussian blur filter to the given picture.
     public static Picture gaussian(Picture picture)
     {
@@ -95,38 +109,60 @@ public class KernelFilter {
         {
           Picture subPicture = getPeriodicBoundary(y, x, picture, weights);
           Color pixel = applyFilter(subPicture, weights);
+
+          //Color pixel = getCentral(subPicture);
+          //if (! pixel.equals(picture.get(x,y))) StdOut.printf("pixel (%d, %d) not the same\n", x, y);
+          //if (pixel.equals(picture.get(x,y))) StdOut.printf("pixel (%d, %d) are the same\n", x, y);
+
           pic.set(x, y, pixel);
         }
       }
+
+      //if (! pic.equals(picture)) StdOut.printf("picture not the same\n");
+
       return pic;
     }
 
-    private static Picture getPeriodicBoundary(int y, int x, Picture picture, double[][] weights)
+    private static Color getCentral(Picture picture)
     {
-      int h = weights.length;
-      int w = weights[0].length;
-      int hp = picture.height();
-      int wp = picture.width();
-      Picture subPicture = new Picture(w, h);
-
-      //StdOut.printf("h: %d, w: %d, hp: %d, hw: %d\n", h, w, hp, wp); 
+      int h = picture.height();
+      int w = picture.width();
 
       // calculate center
       int cx = w / 2;
       int cy = h / 2;
 
-      // upper left corner
-      int ulx = Math.floorMod(x - cx, wp); 
-      int uly = Math.floorMod(y - cy, hp); 
-      // lower right corner
-      int lrx = Math.floorMod(x + (w-cx), wp); 
-      int lry = Math.floorMod(y + (h-cy), hp); 
+    //  StdOut.printf("dim: (%d, %d), center: (%d, %d)\n", w, h, cx, cy);
+     
+      return picture.get(cx, cy); 
+    }
 
-      for (int sy = uly, i=0; sy < lry; sy++, i++)
+    private static Picture getPeriodicBoundary(int y, int x, Picture picture, double[][] weights)
+    {
+      int hk = weights.length;
+      int wk = weights[0].length;
+      int hp = picture.height();
+      int wp = picture.width();
+      Picture subPicture = new Picture(wk, hk);
+
+      // calculate center
+      int cx = wk / 2;
+      int cy = hk / 2;
+
+      for (int yk = 0; yk < hk; yk++)
       {
-        for (int sx = ulx, j=0; sx < lrx; sx++, j++)
+        for (int xk = 0; xk < wk; xk++)
         {
-          subPicture.set(j, i, picture.get(sx, sy));  
+          int bx = Math.floorMod(x - (cx - xk), wp);
+          int by = Math.floorMod(y - (cy - yk), wp);
+
+          subPicture.set(xk, yk, picture.get(bx, by));
+/*
+          if (x == 0 && y == 0)
+          {
+            StdOut.printf("xk,yk: (%d, %d), bx,by: (%d, %d)\n", xk, yk, bx, by);
+          }
+*/
         }
       }
 
@@ -193,12 +229,13 @@ public class KernelFilter {
     {
       Picture pic = new Picture(args[0]);
       pic.show();
+      /*
+      */
       sharpen(pic).show();
-      laplacian(pic).show();
       emboss(pic).show();
       gaussian(pic).show();
       motionBlur(pic).show();
-      /*
-      */
+      laplacian(pic).show();
+      identity(pic).show();
     }
 }
