@@ -123,6 +123,7 @@ public class KernelFilter {
       return pic;
     }
 
+    /*
     private static Color getCentral(Picture picture)
     {
       int h = picture.height();
@@ -136,6 +137,7 @@ public class KernelFilter {
      
       return picture.get(cx, cy); 
     }
+    */
 
     private static Picture getPeriodicBoundary(int y, int x, Picture picture, double[][] weights)
     {
@@ -154,7 +156,7 @@ public class KernelFilter {
         for (int xk = 0; xk < wk; xk++)
         {
           int bx = Math.floorMod(x - (cx - xk), wp);
-          int by = Math.floorMod(y - (cy - yk), wp);
+          int by = Math.floorMod(y - (cy - yk), hp);
 
           subPicture.set(xk, yk, picture.get(bx, by));
 /*
@@ -229,13 +231,20 @@ public class KernelFilter {
     {
       Picture pic = new Picture(args[0]);
       pic.show();
-      /*
-      */
       sharpen(pic).show();
       emboss(pic).show();
       gaussian(pic).show();
       motionBlur(pic).show();
       laplacian(pic).show();
       identity(pic).show();
+      
+      /*
+      Picture p = new Picture(6,5);
+      for (int x = 0; x < p.width(); x++)
+        for (int y = 0; y < p.height(); y++)
+          p.set(x,y, new Color(0,0,0));
+
+      gaussian(p).show();
+      */
     }
 }
