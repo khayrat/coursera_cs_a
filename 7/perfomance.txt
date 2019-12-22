@@ -1,0 +1,70 @@
+Which statements that characterize the doubling hypothesis? Mark all that apply.
+4 4 2 4     4
+n y y y y n n A way to avoid empirical tests of program performance
+
+y y y y y y y A way to determine the order of growth of the running time of a program
+
+y y y y y y y A way to avoid mathematical analysis of program performance
+
+n n y n n y n A way to improve the performance of a program
+ 
+y y y y y y y A way to better understand the performance of a program
+
+------
+A way to avoid mathematical analysis of program performance
+A way to avoid empirical tests of program performance
+------
+2.
+Which of the following running times for a program consistent with the hypothesis that the order of growth of the program is quadratic (check all that apply)? Mark all that apply.
+
+n y 1 second for N = 1,000,000, 2 seconds for N = 2,000,000, 8 seconds for N = 8,000,000
+
+y n 1 second for N = 100,000, 4 seconds for N = 200,000, 16 seconds for N = 400,000
+
+n 1 second for N = 100,000, 8 seconds for N = 200,000, 64 seconds for N = 400,000
+
+n y 1 second for N = 100,000, 4 seconds for N = 200,000, 32 seconds for N = 800,000
+
+y n 1 second for N = 100,000, 4 seconds for N = 200,000, 64 seconds for N = 800,000
+y n 1 second for N = 100,000, 4 seconds for N = 200,000, 16 seconds for N = 400,000
+
+------
+second for N = 100,000, 4 seconds for N = 200,000, 64 seconds for N = 800,000
+second for N = 100,000, 4 seconds for N = 200,000, 16 seconds for N = 400,000
+------
+
+3.Frage 3
+Which of the following is equivalent to saying a(n) ~ b(n) ? Mark all that apply.
+
+n n n n n The ratio of a(n) to b(n) tends to 0 as n grows
+
+y y y y y The ratio of a(n) to b(n) tends to 1 as n grows
+
+y n n n y The difference between a(n) and b(n) tends to 0 as n grows
+
+n y n y n The difference between a(n) and b(n) is bounded by a constant
+
+n n y y y The order of growth of a(n) is b(n)
+
+------
+The ratio of a(n) to b(n) tends to 1 as n grows
+------
+4.
+The Java function below returns a string of length n whose characters are all x. What is the order of growth of its running time? (Recall that concatenating two strings in Java takes time proportional to the length of the resulting string.)
+
+public static String method3(int n)
+{
+   if (n == 0) return "";
+   if (n == 1) return "x";
+   return method3(n/2) + method3(n - n/2);
+}
+
+linear
+
+y linearithmic
+
+quadratic
+
+cubic
+
+exponential
