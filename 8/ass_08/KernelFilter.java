@@ -133,23 +133,34 @@ public class KernelFilter {
         }
       }
 
-      return new Color(
-          reduce(reds),
-          reduce(greens),
-          reduce(blues));
+      return reduce(reds, greens, blues);
     }
 
-    private static int reduce(double[] elems)
+    private static Color reduce(double[] reds, double[] greens, double[] blues)
     {
-      int result = 0;
-      double interimResult = 0;
-      for (int i = 0; i < elems.length; i++) interimResult += elems[i];
+      double rr = 0;
+      double gg = 0;
+      double bb = 0;
 
-      result = (int) Math.round(interimResult);
-      if (result < 0) result = 0;
-      if (result > 255) result = 255;
+      int n = reds.length;
+      for (int i = 0; i < n; i++) 
+      {
+       rr += reds[i]; gg += greens[i]; bb += blues[i];
+      }
 
-      return result;
+      int r = (int) Math.round(rr);
+      if (r < 0) r = 0;
+      if (r > 255) r = 255;
+
+      int g = (int) Math.round(gg);
+      if (g < 0) g = 0;
+      if (g > 255) g = 255;
+
+      int b = (int) Math.round(bb);
+      if (b < 0) b = 0;
+      if (b > 255) b = 255;
+
+      return new Color(r, g, b);
     }
 
     // Test client (ungraded).
