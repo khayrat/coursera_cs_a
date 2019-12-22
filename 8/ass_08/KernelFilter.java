@@ -141,21 +141,16 @@ public class KernelFilter {
           // match picture coordinates with kernel
           int px = Math.floorMod(x - wcx + wx, pw);
           int py = Math.floorMod(y - wcy + wy, ph);
-          //StdOut.printf(" [(%d, %d) * (%d, %d)] ", wy, wx, py, px);
 
           // actual wight
           double w = weights[wy][wx];
 
           // fill the linearcombinations
           int offset = wy * ww + wx;
-          double r = picture.get(px, py).getRed() * w;
-          reds[offset] = r;
-          double g = picture.get(px, py).getGreen() * w;
-          greens[offset] = g;
-          double b = picture.get(px, py).getBlue() * w;
-          blues[offset] = b;
+          reds[offset]   = picture.get(px, py).getRed()   * w;
+          greens[offset] = picture.get(px, py).getGreen() * w;
+          blues[offset]  = picture.get(px, py).getBlue()  * w;
         }
-        //StdOut.printf("\n");
       }
 
       return new Color(
