@@ -1,17 +1,20 @@
 import java.awt.Color;
 
 public class KernelFilter {
-    private static double[][] getMotionBlurKernel() {
-      double[][] kernel = new double[9][9];
+    private static Picture identity(Picture picture)
+    {
+      double[][] kernel = {
+        {0, 0, 0},
+        {0, 1, 0},
+        {0, 0, 0}
+      };
 
-      for (int r = 0; r < 9; r++)
-        for (int c = 0; c < 9; c++)
-          if (r == c) kernel[r][c] = 1./9;
-
-      return kernel;
+      return kernel(picture, kernel);
     }
 
-    private static double[][] getGaussianKernel() {
+    // Returns a new picture that applies a Gaussian blur filter to the given picture.
+    public static Picture gaussian(Picture picture)
+    {
       double[][] kernel = {
         {1, 2, 1},
         {2, 4, 2},
@@ -22,78 +25,55 @@ public class KernelFilter {
         for (int c = 0; c < 3; c++)
           kernel[r][c] = 1./16 * kernel[r][c];
 
-      return kernel;
-    }
-
-    private static double[][] getSharpenKernel() {
-      double[][] kernel = {
-        {0, -1, 0},
-        {-1, 5, -1},
-        {0, -1, 0}
-      };
-      return kernel;
-    }
-
-    private static double[][] getLaplacianKernel() {
-      double[][] kernel = {
-        {-1, -1, -1},
-        {-1, 8, -1},
-        {-1, -1, -1}
-      };
-      return kernel;
-    }
-
-    private static double[][] getEmbossKernel() {
-      double[][] kernel = {
-        {-2, -1, 0},
-        {-1, 1, 1},
-        {0, 1, 2}
-      };
-      return kernel;
-    }
-
-    private static double[][] getIdentityKernel() {
-      double[][] kernel = {
-        {0, 0, 0},
-        {0, 1, 0},
-        {0, 0, 0}
-      };
-      return kernel;
-    }
-
-    private static Picture identity(Picture picture)
-    {
-      return kernel(picture, getIdentityKernel());
-    }
-
-    // Returns a new picture that applies a Gaussian blur filter to the given picture.
-    public static Picture gaussian(Picture picture)
-    {
-      return kernel(picture, getGaussianKernel());
+      return kernel(picture, kernel);
     }
 
     // Returns a new picture that applies a sharpen filter to the given picture.
     public static Picture sharpen(Picture picture)
     {
-      return kernel(picture, getSharpenKernel());
+      double[][] kernel = {
+        {0, -1, 0},
+        {-1, 5, -1},
+        {0, -1, 0}
+      };
+
+      return kernel(picture, kernel);
     }
 
     // Returns a new picture that applies an Laplacian filter to the given picture.
     public static Picture laplacian(Picture picture)
     {
-      return kernel(picture, getLaplacianKernel());
+      double[][] kernel = {
+        {-1, -1, -1},
+        {-1, 8, -1},
+        {-1, -1, -1}
+      };
+
+      return kernel(picture, kernel);
     }
 
     // Returns a new picture that applies an emboss filter to the given picture.
     public static Picture emboss(Picture picture)
     {
-      return kernel(picture, getEmbossKernel());
+      double[][] kernel = {
+        {-2, -1, 0},
+        {-1, 1, 1},
+        {0, 1, 2}
+      };
+
+      return kernel(picture, kernel);
     }
 
     // Returns a new picture that applies a motion blur filter to the given picture.
     public static Picture motionBlur(Picture picture)
     {
-      return kernel(picture, getMotionBlurKernel());
+      double[][] kernel = new double[9][9];
+
+      for (int r = 0; r < 9; r++)
+        for (int c = 0; c < 9; c++)
+          if (r == c) kernel[r][c] = 1./9;
+
+      return kernel(picture, kernel);
     }
 
     // Returns a new picture that applies an arbitrary kernel filter to the given picture.
