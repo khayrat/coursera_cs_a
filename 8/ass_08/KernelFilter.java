@@ -108,19 +108,9 @@ public class KernelFilter {
         for (int x = 0; x < w; x++)
         {
           Color pixel = kernel(x, y, picture, weights);
-
-          //Picture subPicture = getPeriodicBoundary(y, x, picture, weights);
-          //Color pixel = applyFilter(subPicture, weights);
-
-          //Color pixel = getCentral(subPicture);
-          //if (! pixel.equals(picture.get(x,y))) StdOut.printf("pixel (%d, %d) not the same\n", x, y);
-          //if (pixel.equals(picture.get(x,y))) StdOut.printf("pixel (%d, %d) are the same\n", x, y);
-
           pic.set(x, y, pixel);
         }
       }
-
-      //if (! pic.equals(picture)) StdOut.printf("picture not the same\n");
 
       return pic;
     }
@@ -139,26 +129,24 @@ public class KernelFilter {
       int wcy = (int) Math.floor(wh/2.);
       int wcx = (int) Math.floor(ww/2.);
 
-      // distance 
-
+      // elems of the rgb linearcombinations
       int[] reds = new int[wh*ww];
       int[] greens = new int[wh*ww];
       int[] blues = new int[wh*ww];
   
-      //StdOut.printf("kernel for pixel (%d, %d), center: (%d, %d):\n", x, y, wcx, wcy);
-
       for (int wy = 0; wy < wh; wy++)
       {
         for (int wx = 0; wx < ww; wx++)
         {
-          // fill lienearCombination elems
+          // match picture coordinates with kernel
           int px = Math.floorMod(x - wcx + wx, pw);
           int py = Math.floorMod(y - wcy + wy, ph);
           //StdOut.printf(" [(%d, %d) * (%d, %d)] ", wy, wx, py, px);
 
+          // actual wight
           double w = weights[wy][wx];
-          /*
-          */
+
+          // fill the linearcombinations
           int offset = wy * ww + wx;
           int r = (int) Math.round(picture.get(px, py).getRed() * w);
           reds[offset] = r;
@@ -174,44 +162,17 @@ public class KernelFilter {
           reduce(reds),
           reduce(greens),
           reduce(blues));
-      //return new Color(0,0,0);
     }
-
 
     private static int reduce(int[] elems)
     {
       int result = 0;
-      for (int i = 0; i < elems.length; i++)
-      {
-        result += elems[i];
-      }
+      for (int i = 0; i < elems.length; i++) result += elems[i];
 
       if (result < 0) result = 0;
       if (result > 255) result = 255;
 
       return result;
-    }
-
-    private static void printPicture(Picture p)
-    {
-      StdOut.printf("Picture:\n");
-      for (int y = 0; y < p.height(); y++)
-      {
-        for (int x = 0; x < p.width(); x++)
-          StdOut.printf(" (%d, %d): [%3s ", y, x, p.get(x,y).toString().substring(25));
-        StdOut.printf("\n");
-      }    
-    }
-
-    private static void printKernel(double[][] k)
-    {
-      StdOut.printf("Kernel:\n");
-      for (int y = 0; y < k.length; y++)
-      {
-        for (int x = 0; x < k[0].length; x++)
-          StdOut.printf(" (%d, %d): [%.3f] ", y, x, k[y][x]);
-        StdOut.printf("\n");
-      }    
     }
 
     // Test client (ungraded).
@@ -225,16 +186,5 @@ public class KernelFilter {
       motionBlur(pic).show();
       laplacian(pic).show();
       identity(pic).show();
-      
-      /*
-      Picture p = new Picture(6,5);
-      for (int y = 0; y < p.height(); y++)
-        for (int x = 0; x < p.width(); x++)
-          p.set(x,y, new Color(0,0,6*y + x));
-
-      printKernel(getGaussianKernel());
-      printPicture(p);
-      gaussian(p);
-      */
     }
 }
