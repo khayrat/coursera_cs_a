@@ -87,8 +87,9 @@ public class KernelFilter {
       {
         for (int x = 0; x < w; x++)
         {
-          Color pixel = kernel(x, y, picture, weights);
-          pic.set(x, y, pixel);
+          //Color pixel = kernel(x, y, picture, weights);
+          //pic.set(x, y, pixel);
+          pic.set(x, y, kernel(x, y, picture, weights));
         }
       }
 
@@ -110,9 +111,10 @@ public class KernelFilter {
       int wcx = (int) Math.floor(ww/2.);
 
       // elems of the rgb linearcombinations
-      double[] reds = new double[wh*ww];
-      double[] greens = new double[wh*ww];
-      double[] blues = new double[wh*ww];
+      int n = wh*ww;
+      double[] reds = new double[n];
+      double[] greens = new double[n];
+      double[] blues = new double[n];
   
       for (int wy = 0; wy < wh; wy++)
       {
