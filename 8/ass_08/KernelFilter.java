@@ -130,9 +130,9 @@ public class KernelFilter {
       int wcx = (int) Math.floor(ww/2.);
 
       // elems of the rgb linearcombinations
-      int[] reds = new int[wh*ww];
-      int[] greens = new int[wh*ww];
-      int[] blues = new int[wh*ww];
+      double[] reds = new double[wh*ww];
+      double[] greens = new double[wh*ww];
+      double[] blues = new double[wh*ww];
   
       for (int wy = 0; wy < wh; wy++)
       {
@@ -148,11 +148,11 @@ public class KernelFilter {
 
           // fill the linearcombinations
           int offset = wy * ww + wx;
-          int r = (int) Math.round(picture.get(px, py).getRed() * w);
+          double r = picture.get(px, py).getRed() * w;
           reds[offset] = r;
-          int g = (int) Math.round(picture.get(px, py).getGreen() * w);
+          double g = picture.get(px, py).getGreen() * w;
           greens[offset] = g;
-          int b = (int) Math.round(picture.get(px, py).getBlue() * w);
+          double b = picture.get(px, py).getBlue() * w;
           blues[offset] = b;
         }
         //StdOut.printf("\n");
@@ -164,11 +164,13 @@ public class KernelFilter {
           reduce(blues));
     }
 
-    private static int reduce(int[] elems)
+    private static int reduce(double[] elems)
     {
       int result = 0;
-      for (int i = 0; i < elems.length; i++) result += elems[i];
+      double interimResult = 0;
+      for (int i = 0; i < elems.length; i++) interimResult += elems[i];
 
+      result = (int) Math.round(interimResult);
       if (result < 0) result = 0;
       if (result > 255) result = 255;
 
