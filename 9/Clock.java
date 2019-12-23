@@ -4,6 +4,32 @@ public class Clock {
     // Creates a clock whose initial time is h hours and m minutes.
     public Clock(int h, int m)
     {
+      init(h, m);
+    }
+
+    // Creates a clock whose initial time is specified as a string, using the format HH:MM.
+    public Clock(String s)
+    {
+      int h, m;
+
+      if (s.length() != 5) wrongFormat(s);
+
+      try
+      {
+        h = Integer.parseInt("" + s.charAt(0)) * 10;
+        h = h + Integer.parseInt("" + s.charAt(1));
+        if (s.charAt(2) != ':') wrongFormat(s);
+        m = Integer.parseInt("" + s.charAt(3)) * 10;
+        m = m + Integer.parseInt("" + s.charAt(4));
+        init(h, m);
+      } catch (Exception e)
+      {
+        wrongFormat(s);
+      }
+    }
+
+    private void init(int h, int m)
+    {
       if (h < 0 || h > 23) throw new IllegalArgumentException("h should be in range 0 <= h <= 23: " + h);
       if (m < 0 || m > 59) throw new IllegalArgumentException("m should be in range 0 <= m <= 59: " + m);
 
@@ -11,13 +37,9 @@ public class Clock {
       this.m = m;
     }
 
-    // Creates a clock whose initial time is specified as a string, using the format HH:MM.
-    public Clock(String s)
+    private static void wrongFormat(String s)
     {
-      this(
-          Integer.parseInt(s.substring(0, s.indexOf(":"))), 
-          Integer.parseInt(s.substring(s.indexOf(":")+1))
-      );
+        throw new IllegalArgumentException("time format is 'HH:MM' given: '" +s +"'");
     }
 
     // Returns a string representation of this clock, using the format HH:MM.
@@ -37,6 +59,7 @@ public class Clock {
     public boolean isEarlierThan(Clock that)
     {
       if (this.h < that.h) return true;
+      if (this.h > that.h) return false;
       if (this.m < that.m) return true;
       else                 return false;
     }
@@ -59,6 +82,7 @@ public class Clock {
     // Adds Δ minutes to the time on this clock.
     public void toc(int delta)
     {
+      if (delta < 0) throw new IllegalArgumentException("delta < 0: " + delta);
       m += delta;
 
       int d = m / 60;
@@ -73,23 +97,38 @@ public class Clock {
       }
     }
 
+    private static void expectException(String s)
+    {
+      try {
+        new Clock(s);
+        throw new IllegalStateException("should throw Exception for s: '" + s +"'");
+      } catch (IllegalArgumentException e)
+      {
+        // expected
+        StdOut.printf("got expected Exception: %s\n", e);
+      }
+    }
+
+    private static void expectException(int h, int m)
+    {
+      try {
+        new Clock(h, m);
+        throw new IllegalStateException("should throw Exception for (h, m): '(" + h +", " + m + ")'");
+      } catch (IllegalArgumentException e)
+      {
+        // expected
+        StdOut.printf("got expected Exception: %s\n", e);
+      }
+    }
+
     // Test client (see below).
     public static void main(String[] args)
     {
-      try {
-        new Clock(-1, 10);
-        throw new IllegalStateException("should throw Exception for (-1,10)");
-      } catch (IllegalArgumentException e)
-      {
-        // expected
-      }
-      try {
-        new Clock(1, 70);
-        throw new IllegalStateException("should throw Exception for (1,70)");
-      } catch (IllegalArgumentException e)
-      {
-        // expected
-      }
+      expectException(-1 , 10);
+      expectException(1 , 70);
+      expectException("");
+      expectException("01:01 ");
+      expectException("001:01");
 
       Clock c1 = new Clock(10, 50);
       Clock c2 = new Clock("10:51");
@@ -122,5 +161,7 @@ public class Clock {
       StdOut.printf("c5 toc 30000\n");
       c5.toc(30000);
       StdOut.printf("c5: %s\n", c5);
+
+      StdOut.printf("%b\n", new Clock(9,22).isEarlierThan(new Clock(7, 41)));
     }
 }
