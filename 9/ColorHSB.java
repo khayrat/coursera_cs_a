@@ -1,6 +1,6 @@
 public class ColorHSB 
 {
-    int h, s, b;
+    private int h, s, b;
 
     // Creates a color with hue h, saturation s, and brightness b.
     public ColorHSB(int h, int s, int b)
