@@ -1,5 +1,5 @@
 public class Clock {
-    int h, m;
+    private int h, m;
 
     // Creates a clock whose initial time is h hours and m minutes.
     public Clock(int h, int m)
