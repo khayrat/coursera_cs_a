@@ -22,7 +22,7 @@ public class Clock {
         m = Integer.parseInt("" + s.charAt(3)) * 10;
         m = m + Integer.parseInt("" + s.charAt(4));
         init(h, m);
-      } catch (Exception e)
+      } catch (NumberFormatException e)
       {
         wrongFormat(s);
       }
