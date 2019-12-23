@@ -10,22 +10,25 @@ public class Clock {
     // Creates a clock whose initial time is specified as a string, using the format HH:MM.
     public Clock(String s)
     {
-      int h, m;
-
       if (s.length() != 5) wrongFormat(s);
 
       try
       {
-        h = Integer.parseInt("" + s.charAt(0)) * 10;
+        int h = Integer.parseInt("" + s.charAt(0)) * 10;
         h = h + Integer.parseInt("" + s.charAt(1));
         if (s.charAt(2) != ':') wrongFormat(s);
-        m = Integer.parseInt("" + s.charAt(3)) * 10;
+        int m = Integer.parseInt("" + s.charAt(3)) * 10;
         m = m + Integer.parseInt("" + s.charAt(4));
         init(h, m);
       } catch (NumberFormatException e)
       {
         wrongFormat(s);
       }
+    }
+
+    private static void wrongFormat(String s)
+    {
+        throw new IllegalArgumentException("time format is 'HH:MM' given: '" +s +"'");
     }
 
     private void init(int h, int m)
@@ -35,11 +38,6 @@ public class Clock {
 
       this.h = h;
       this.m = m;
-    }
-
-    private static void wrongFormat(String s)
-    {
-        throw new IllegalArgumentException("time format is 'HH:MM' given: '" +s +"'");
     }
 
     // Returns a string representation of this clock, using the format HH:MM.
@@ -129,6 +127,7 @@ public class Clock {
       expectException("");
       expectException("01:01 ");
       expectException("001:01");
+      expectException("01:0x");
 
       Clock c1 = new Clock(10, 50);
       Clock c2 = new Clock("10:51");
