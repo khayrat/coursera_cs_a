@@ -69,7 +69,7 @@ public class Clock {
         h += d;
         m = r;
 
-        if (h > 23) h = 0;
+        h = h % 24;
       }
     }
 
@@ -104,5 +104,23 @@ public class Clock {
       c2.toc(10);
       StdOut.printf("c1: %s, c2: %s\n", c1, c2);
       StdOut.printf("c1 is earlier than c2: %b\n", c1.isEarlierThan(c2));
+      Clock c3 = new Clock("22:59");
+
+      StdOut.printf("c3: %s\n", c3);
+      StdOut.printf("c3 toc 1440\n");
+      c3.toc(1440);
+      StdOut.printf("c3: %s\n", c3);
+
+      Clock c4 = new Clock("23:59");
+      StdOut.printf("c4: %s\n", c4);
+      StdOut.printf("c4 toc 100\n");
+      c4.toc(100);
+      StdOut.printf("c4: %s\n", c4);
+
+      Clock c5 = new Clock(0,0);
+      StdOut.printf("c5: %s\n", c5);
+      StdOut.printf("c5 toc 30000\n");
+      c5.toc(30000);
+      StdOut.printf("c5: %s\n", c5);
     }
 }
