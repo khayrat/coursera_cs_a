@@ -1,27 +1,45 @@
 public class ColorHSB 
 {
+    int h, s, b;
+
     // Creates a color with hue h, saturation s, and brightness b.
     public ColorHSB(int h, int s, int b)
     {
+      if (h < 0 || h > 359) throw new IllegalArgumentException("h should be in the range 0 <= h <= 359: " + h);
+      if (s < 0 || s > 100) throw new IllegalArgumentException("s should be in the range 0 <= s <= 100: " + s);
+      if (b < 0 || b > 100) throw new IllegalArgumentException("b should be in the range 0 <= b <= 100: " + b);
 
+      this.h = h;
+      this.s = s;
+      this.b = b;
     }
 
     // Returns a string representation of this color, using the format (h, s, b).
     public String toString()
     {
-      return null;
+      return new StringBuilder("(")
+        .append(h).append(", ")
+        .append(s).append(", ")
+        .append(b).append(")")
+        .toString();
     }
 
     // Is this color a shade of gray?
     public boolean isGrayscale()
     {
-      return false;
+      return s == 0 || b == 0;
     }
 
     // Returns the squared distance between the two colors.
     public int distanceSquaredTo(ColorHSB that)
     {
-      return 0;
+      if (that == null) throw new IllegalArgumentException("compare to null object");
+
+      int hDiff = this.h - that.h;
+      int sDiff = this.s - that.s;
+      int bDiff = this.b - that.b;
+
+      return Math.min(hDiff*hDiff, (360 - Math.abs(hDiff))*(360 - Math.abs(hDiff))) + sDiff*sDiff + bDiff*bDiff;
     }
 
     // Sample client (see below).
