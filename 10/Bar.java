@@ -2,42 +2,63 @@ import java.util.Arrays;
 
 public class Bar implements Comparable<Bar> 
 {
+    private String name;
+    private int value;
+    private String category;
+
     // Creates a new bar.
     public Bar(String name, int value, String category)
     {
+      if (name == null) throw new IllegalArgumentException("no name.");
+      if (value < 0) throw new IllegalArgumentException("value negative.");
+      if (category == null) throw new IllegalArgumentException("no category.");
 
+      this.name = name;
+      this.value = value;
+      this.category = category;
     }
 
     // Returns the name of this bar.
     public String getName()
     {
-      return null;
+      return name;
     }
 
     // Returns the value of this bar.
     public int getValue()
     {
-      return 0;
+      return value;
     }
 
     // Returns the category of this bar.
     public String getCategory()
     {
-      return null;
+      return category;
     }
 
     // Compare two bars by value.
     public int compareTo(Bar that)
     {
-      return 0;
+      if (that == null) throw new NullPointerException("that was null");
+
+      if (this.value < that.value)      return -1;
+      else if (this.value > that.value) return 1;
+      else                              return 0;
+    }
+
+    public String toString()
+    {
+      return name + " " + value + " " + category;
     }
 
     private static void print(Bar[] bars)
     {
+      StdOut.println("------------------");
       for (Bar bar : bars)
       {
         StdOut.println(bar);
       }
+      StdOut.println("------------------");
     }
 
     // Sample client (see below).
