@@ -48,7 +48,7 @@ public class Bar implements Comparable<Bar>
 
     public String toString()
     {
-      return name + " " + value + " " + category;
+      return name + " | " + value + " | " + category;
     }
 
     private static void print(Bar[] bars)
