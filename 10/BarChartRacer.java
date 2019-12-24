@@ -22,11 +22,16 @@ public class BarChartRacer
 
       while(in.hasNextLine())
       {
-        in.readLine(); // empty line
-        int n = Integer.parseInt(in.readLine());
-        Bar[] bars = new Bar[n];
         String caption = null;
+        in.readLine(); // empty line
+        int n = in.readInt(); in.readLine();
 
+        Bar[] bars = null; 
+        if (n < k) bars = new Bar[k];
+        else       bars = new Bar[n];
+
+        //StdOut.printf("records: '%d'\n", n);
+        
         // read records
         for (int i = 0; i < n; i++)
         {
@@ -40,6 +45,14 @@ public class BarChartRacer
           String category = fields[4];
 
           bars[i] = new Bar(name, value, category);
+          //StdOut.printf("bar: '%s'\n", bars[i]);
+        }
+
+        // padding
+        if (n < k)
+        {
+          for (int i = n; i < k; i++)
+            bars[i] = new Bar("", 0, "");
         }
 
         Arrays.sort(bars);
@@ -47,21 +60,22 @@ public class BarChartRacer
         // fill chart
         chart.reset();
         chart.setCaption(caption);
-        int max = Math.min(n, k);
-        for (int i = max-1; i >= 0; i--)
+        for (int i = n-1; i >= (n-k); i--)
         {
           Bar bar = bars[i];
-          //StdOut.printf("bar: '%s'\n", bar);
           if (bar.getValue() > 0)
+          {
             chart.add(bar.getName(), bar.getValue(), bar.getCategory());
+            //StdOut.printf("add bar to chart: '%s'\n", bar);
+          }
         }
 
         // draw
         StdDraw.clear();
         chart.draw();
         StdDraw.show();
-        //StdDraw.pause(10);
-        StdDraw.pause(100);
+        StdDraw.pause(10);
+        //StdDraw.pause(100);
       }
     }
 }
