@@ -24,11 +24,12 @@ public class BarChartRacer
       {
         String caption = null;
         in.readLine(); // empty line
-        int n = in.readInt(); in.readLine();
+        int n = Integer.parseInt(in.readLine());
 
         Bar[] bars = null; 
-        if (n < k) bars = new Bar[k];
-        else       bars = new Bar[n];
+        //if (n < k) bars = new Bar[k];
+        //else       bars = new Bar[n];
+        bars = new Bar[n];
 
         //StdOut.printf("records: '%d'\n", n);
         
@@ -47,14 +48,14 @@ public class BarChartRacer
           bars[i] = new Bar(name, value, category);
           //StdOut.printf("bar: '%s'\n", bars[i]);
         }
-
+/*
         // padding
         if (n < k)
         {
           for (int i = n; i < k; i++)
             bars[i] = new Bar("", 0, "");
         }
-
+*/
         Arrays.sort(bars);
 
         // fill chart
@@ -69,7 +70,8 @@ public class BarChartRacer
             //StdOut.printf("add bar to chart: '%s'\n", bar);
           }
         }
-
+/*
+*/
         // draw
         StdDraw.clear();
         chart.draw();
