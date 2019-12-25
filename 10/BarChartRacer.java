@@ -9,6 +9,7 @@ public class BarChartRacer
 
       StdDraw.setCanvasSize(1000, 700);
       StdDraw.enableDoubleBuffering();
+      StdAudio.loop("soundtrackA.wav");
 
       In in = new In(fileName);
 
@@ -76,8 +77,8 @@ public class BarChartRacer
         StdDraw.clear();
         chart.draw();
         StdDraw.show();
-        StdDraw.pause(10);
-        //StdDraw.pause(100);
+        //StdDraw.pause(10);
+        StdDraw.pause(100);
       }
     }
 }
